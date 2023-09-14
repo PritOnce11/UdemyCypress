@@ -11,7 +11,6 @@ const user = 'standard_user'
 const password = 'secret_sauce'
 const sauceLabsBackPack = '//*[@data-test="add-to-cart-sauce-labs-backpack"]'
 const cartButton = '.shopping_cart_link'
-const removeButton = '//*[@data-test="remove-sauce-labs-backpack"]'
 
 describe('Visiting SauceDemo Test', () =>{
     beforeEach(() => {
@@ -19,14 +18,10 @@ describe('Visiting SauceDemo Test', () =>{
         cy.visit('https://www.saucedemo.com/')
     })
 
-    it('add and remove product from cart page', () =>{
+    it('check the quantity of products', () =>{
         home.login(user, password)
-        cy.wait(1000)
         common.click(sauceLabsBackPack)
-        cy.wait(1000)
-        cy.get(cartButton).click()
-        cy.wait(1000)
-        common.click(removeButton)
+        cy.get('.shopping_cart_badge').should('have.text', '1')
     })
 
 })

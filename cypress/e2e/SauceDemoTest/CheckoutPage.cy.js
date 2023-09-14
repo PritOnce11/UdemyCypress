@@ -1,3 +1,22 @@
+import SauceDemoCheckoutPage from '../../pages/CheckoutPage.cy.js'
+import SauceDemoLoginPage from '../../pages/LoginPage.cy.js'
+import commons from '../../commons/Commons.js'
+
+const home = new SauceDemoLoginPage
+const checkout = new SauceDemoCheckoutPage
+const common = new commons
+
+//VARIABLES
+const user = 'standard_user'
+const password = 'secret_sauce'
+const sauceLabsBackPack = '//*[@data-test="add-to-cart-sauce-labs-backpack"]'
+const cartButton = '.shopping_cart_link' 
+const checkoutPage = '//*[@data-test="checkout"]'
+const name = 'Prit'
+const lastName = 'Once'
+const postalCode = '07003'
+const checkoutLabel = '.cart_item'
+
 describe('Visiting SauceDemo Test', () =>{
     beforeEach(() => {
         cy.viewport('macbook-15')
@@ -5,23 +24,22 @@ describe('Visiting SauceDemo Test', () =>{
     })
 
     it('add and remove product', () =>{
-        cy.wait(3000)
-        cy.xpath('//*[@data-test="username"]').type('standard_user')
-        cy.xpath('//*[@data-test="password"]').type('secret_sauce')
-        cy.xpath('//*[@data-test="login-button"]').click();
-        cy.wait(1000)
-        cy.xpath('//*[@data-test="add-to-cart-sauce-labs-backpack"]').click()
-        cy.wait(1000)
-        cy.get('.shopping_cart_link').click()
-        cy.wait(1000)
-        cy.get('[data-test="checkout"]').click()
-        cy.wait(1000)
-        cy.get('[data-test="firstName"]').type('Prit')
-        cy.get('[data-test="lastName"]').type('Once')
-        cy.get('[data-test="postalCode"]').type('07003')
-        cy.get('[data-test="continue"]').click()
-        cy.get('[data-test="finish"]').click()
-
+        home.login(user, password)
+        common.click(sauceLabsBackPack)
+        cy.get(cartButton).click()
+        common.click(checkoutPage)
+        checkout.fillTheFields(name, lastName, postalCode)
+        common.click('//*[@data-test="continue"]')
+        common.click('//*[@data-test="finish"]')
     })
 
+    it('check if the product appers on checkout page', () =>{
+        home.login(user, password)
+        common.click(sauceLabsBackPack)
+        cy.get(cartButton).click()
+        common.click(checkoutPage)
+        checkout.fillTheFields(name, lastName, postalCode)
+        common.click('//*[@data-test="continue"]')
+        cy.get(checkoutLabel).should('contain', 'Backpack')
+    })
 })
