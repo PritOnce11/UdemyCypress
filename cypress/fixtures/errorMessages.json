@@ -1,0 +1,13 @@
+{
+    "messagesError":{
+        "userLock": {
+            "message": "Epic sadface: Sorry, this user has been locked out."
+        },
+        "userMissing": {
+            "message": "Epic sadface: Username is required"
+        },
+        "passwordMissing": {
+            "message": "Epic sadface: Password is required"
+        }
+    }
+}

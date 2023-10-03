@@ -1,5 +1,5 @@
-import SauceDemoCheckoutPage from '../../pages/CheckoutPage.cy.js'
-import SauceDemoLoginPage from '../../pages/LoginPage.cy.js'
+import SauceDemoCheckoutPage from '../../pages/CheckoutPage.js'
+import SauceDemoLoginPage from '../../pages/LoginPage.js'
 import commons from '../../commons/Commons.js'
 
 const home = new SauceDemoLoginPage
